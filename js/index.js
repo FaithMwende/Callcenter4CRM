@@ -24,7 +24,7 @@ function ATlogin() {
         console.log(response)
         const at = new Africastalking.Client(token, {
           sounds: {
-         dialing: '/sounds/dial.mp3',
+          dialing: '/sounds/dial.mp3',
           ringing: '/sounds/ring.mp3'
           }
         })
@@ -36,6 +36,7 @@ function ATlogin() {
           answerBtn = document.getElementById('answer-btn'),
           callBtn = document.getElementById('call-btn'),
           callto = document.getElementById('call-to'),
+
           outputColor = document.getElementById('output-color'),
           dtmfKeyboard = document.getElementById('dtmf-keyboard');
 
@@ -53,7 +54,8 @@ function ATlogin() {
         });
 
         callBtn.addEventListener("click", function () {
-          let to = document.getElementById('call-to').value;
+//          let to = document.getElementById('call-to').value;
+          let to = $('#call-to input').val();
           if (/^[a-zA-Z]+/.test(to)) { to = `${username}.${to}` }
           client.call(to, false);
         });
@@ -123,7 +125,7 @@ function ATlogin() {
           answerBtn.setAttribute('disabled', 'disabled');
           callBtn.removeAttribute('disabled');
           callto.removeAttribute('disabled');
-          dtmfKeyboard.style.display = 'none';
+          dtmfKeyboard.style.display = 'initial';
           outputLabel.textContent = 'Call ended';
           outputColor.classList = 'ui tiny orange circular label'
         }, false);
@@ -158,4 +160,15 @@ function ATlogin() {
   }
 }
 
-
+function dialerClick(type, value) {
+        let input = $('#call-to input');
+        let input_val = $('#call-to input').val();
+        if (type == 'dial') {
+            input.val(input_val + value);
+        } else if (type == 'delete') {
+            input.val(input_val.substring(0, input_val.length - 1));
+        } else if (type == 'clear') {
+            input.val("");
+        }
+    }
+id=""

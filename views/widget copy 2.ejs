@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Talk Floating Widget</title>
+  <style>
+    /* Set the size and position of the widget container */
+    #widget-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    /* Set the size and position of the widget */
+    #widget {
+      position: relative;
+      width: 400px;
+      height: 620px;
+      border-radius: 8px;
+      padding: 5px 5px 5px 16px;
+      overflow: hidden;
+      box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      box-sizing: border-box;
+    }
+
+    /* Add a header bar to the widget */
+    #widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 48px;
+      padding: 5px 5px 5px 16px;
+      margin: 20px;
+      background-color: #00a0df;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: move;
+    }
+
+    /* Add a close button to the header bar */
+    #widget-close {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Add some padding to the iframe */
+    #widget-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    /* Adjust the sizing and spacing of elements inside the widget */
+    #widget *,
+    #widget *:before,
+    #widget *:after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Set the size and position of the floating button */
+    #widget-toggle {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #00a0df;
+      box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.2);
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 48px;
+      cursor: pointer;
+    }
+  </style>
+  <style>
+    .floating-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+    }
+</style>
+</head>
+<body>
+  <div id="widget-container">
+    <div id="widget">
+      <iframe id="widget-iframe" src="https://9dc0-41-80-112-84.eu.ngrok.io"></iframe>
+      
+    </div>
+    <div class="floating-btn">
+        <div id="widget-toggle">+</div>
+        <!-- <button class="btn btn-primary btn-lg">Button</button> -->
+    </div>
+  </div>
+  <script>
+    // Get references to the widget, toggle button, and close button
+    const widget = document.getElementById('widget');
+    const toggleButton = document.getElementById('widget-toggle');
+    const closeButton = document.getElementById('widget-close');
+
+    // Add a click event listener to the toggle button
+    toggleButton.addEventListener('click', () => {
+      if (widget.style.display === 'none') {
+        widget.style.display = 'block';
+        toggleButton.textContent = '-';
+      } else {
+        widget.style.display = 'none';
+        toggleButton.textContent = '+';
+      }
+    });
+
+    // Add a click event listener to the close button
+    closeButton.addEventListener('click', () => {
+      widget.style.display = 'none';
+      toggleButton.textContent = '+';
+    });
+
+  </script>
+</body>
+</html>
+
