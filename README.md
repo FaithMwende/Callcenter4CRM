@@ -18,3 +18,10 @@ Run app using `npm start`
 > webRTC will only work on secure pages `https://` or `localhost`. Use this for testing
 
 > more documentation is available [here](https://www.npmjs.com/package/africastalking-client)
+> 
+>
+npm install -g sequelize-cli
+sequelize init
+sequelize migration:generate --name create_calls_table
+
+sequelize db:migrate

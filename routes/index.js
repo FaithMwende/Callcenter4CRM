@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var dbConn = require("../lib/db");
-const axios = require('axios');
 
+var Call_Logs = require("../models/call_log");
+//const { Sequelize, DataTypes } = require('sequelize');
+const axios = require('axios');
+//sequelize.sync();
 const apiKey = '433a67884595beb77141a61adb1ddcb2012259c49d6e8e79da57b2f7eb6f6f84';
 const username = 'Callcenter4CRM';
 const phoneNumber = '+254730731025';
@@ -45,6 +48,16 @@ router.post('/callback_url', (req, res) => {
     	// assumes a browser tried to make a call
     	callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
 
+    	const data = req.body;
+
+          try {
+            const call = await Call_Logs.create(data);
+            res.send('Data saved to MySQL using Sequelize');
+          } catch (err) {
+            console.error(err);
+            res.status(500).send('Error saving data to MySQL using Sequelize');
+          }
+
 //    	dbConn.query(
 //                    "SELECT * from users  WHERE phone  ="+phoneNumber+" and  activation_stage != 'PENDING_REGISTRATION' ",
 //                    function(err, rows, fields) {
@@ -81,7 +94,7 @@ console.log("events===========Incoming call");
     console.log({events: req.body});
 });
 
-router.post('/call_wife', async (req, res) => {
+router.post('/call_another', async (req, res) => {
 console.log("call_wife events===========Incoming call");
 // Read the dtmf digits
    const accountNumber = req.body.dtmfDigits;
@@ -92,6 +105,63 @@ console.log("call_wife events===========Incoming call");
      responseAction = '<?xml version="1.0" encoding="UTF-8"?><Response>' + `${callActions}` + '</Response>';
          res.send(responseAction);
 });
+
+
+
+router.post('/api/call-log', async (req, res) => {
+  const data = req.body;
+
+  try {
+    const call = await Call_Logs.create(data);
+    res.send('Data saved to MySQL using Sequelize');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error saving data to MySQL using Sequelize');
+  }
+});
+router.get('/api/call-logs', async (req, res) => {
+  try {
+    const callLogs = await Call_Logs.findAll();
+    res.json(callLogs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving call logs from MySQL using Sequelize');
+  }
+});
+
+router.post('/api/call_logi', (req, res) => {
+  const data = req.body;
+
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+
+    const sql = `INSERT INTO your_table (amount, destinationNumber, sessionId, durationInSeconds, status, callerNumber, callStartTime, callSessionState, callerCarrierName, direction, callerCountryCode, isActive, currencyCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+      data.amount,
+      data.destinationNumber,
+      data.sessionId,
+      data.durationInSeconds,
+      data.status,
+      data.callerNumber,
+      data.callStartTime,
+      data.callSessionState,
+      data.callerCarrierName,
+      data.direction,
+      data.callerCountryCode,
+      data.isActive,
+      data.currencyCode,
+    ];
+
+    connection.query(sql, values, (err, result) => {
+      connection.release();
+
+      if (err) throw err;
+
+      res.send('Data saved to MySQL');
+    });
+  });
+});
+
 
 
 
