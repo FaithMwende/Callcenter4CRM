@@ -1,0 +1,59 @@
+
+Welcome PesaMe Financial AI Voice Service ( Welcome PesaMe Financial AI Voice Service, Enter your Pin followed by #)
+	New Customer
+		Onboarding
+	Existing Customer
+		Enter Password
+			Say Voice Password ( Repeat this words for your voice Password. My voice is my password)
+			Authenicate
+				Main Voice Interface ( Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care)
+My Account ( For Mini-statement Press 1. To change language Press 2. To check Balance Press 3. To Change Pin Press 4.  To add Or Change Voice Password Press 5 )
+	/mini statement
+	/change language
+	/check balance
+	/change password
+	/change or add voice password
+Send Money
+	Enter Phone Number
+		Enter Amount
+			Confirm Payment
+Request Money
+	Enter phone number
+		Enter Amount you are requesting
+		 	Select Purpose(Food,Agriculture,Construction,Salary Advance)
+					Select 1 to approve => Mpesa STK Push
+
+					2 to postpone
+
+					3 to decline
+Make Payment
+	Utilities
+		Buys Airtime
+			Amount
+
+		Buys Tokens
+		Water
+		Rent
+	Till Number
+		Enter Till Number
+				Enter Amount
+					Confirm  Transactions
+	Paybill
+		Enter Paybill
+			Enter Account
+				Enter Amount
+					Confirm  Transactions
+
+Loan and Savings
+	Mshwari
+		send to m-mshwari
+		withdraw from m-mshari
+		lock savings account
+			open
+			save
+			withdraw
+			check Balance
+			mini statement
+		loan @9% for 30 days
+		check balance
+		mini statement

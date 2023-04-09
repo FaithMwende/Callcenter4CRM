@@ -25,3 +25,4 @@ sequelize init
 sequelize migration:generate --name create_calls_table
 
 sequelize db:migrate
+

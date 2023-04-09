@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var Router = require('./routes/index');
+var pesame = require('./routes/pesame-home');
+var pesame_my_account = require('./routes/pesame-my-account');
 
 var app = express();
 
@@ -18,6 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/js', express.static(path.join(__dirname, 'js')))
 app.use(Router);
+app.use('/pesame',pesame);
+app.use('/pesame-my-account',pesame_my_account);
+
 app.use('/sounds', express.static('sounds'));
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

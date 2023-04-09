@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const {DataTypes } = require('sequelize');
 const sequelize = require('../lib/database');
 
 const Call_Log = sequelize.define('calls_logs', {
@@ -38,6 +38,10 @@ const Call_Log = sequelize.define('calls_logs', {
     type: DataTypes.STRING,
     allowNull: true
   },
+   clientDialedNumber: {
+               type: DataTypes.STRING,
+               allowNull: true
+             },
   direction: {
     type: DataTypes.STRING,
     allowNull: true
