@@ -2,11 +2,8 @@ var express = require('express');
 var router = express.Router();
 var dbConn = require("../lib/db");
 const readline = require('readline');
-
 var Call_Logs = require("../models/call_log");
-//const { Sequelize, DataTypes } = require('sequelize');
 const axios = require('axios');
-//sequelize.sync();
 const apiKey = '433a67884595beb77141a61adb1ddcb2012259c49d6e8e79da57b2f7eb6f6f84';
 const username = 'Callcenter4CRM';
 const phoneNumber = '+254730731025';
@@ -38,9 +35,6 @@ router.post('/capability-token', async (req, res) => {
     })
 });
 
-
-
-
 // make sure to add this route as your callbck url from the africastalking dashboard
 router.post('/callback_url', async(req, res) => {
     console.log(JSON.stringify(req.body, null, 2));
@@ -51,23 +45,11 @@ router.post('/callback_url', async(req, res) => {
 
     	const data = req.body;
 
-          try {
-//          data.set
+        try {
             const call = await Call_Logs.create(data);
-//            res.send('Data saved to MySQL using Sequelize');
           } catch (err) {
             console.error(err);
-//            res.status(500).send('Error saving data to MySQL using Sequelize');
           }
-
-//    	dbConn.query(
-//                    "SELECT * from users  WHERE phone  ="+phoneNumber+" and  activation_stage != 'PENDING_REGISTRATION' ",
-//                    function(err, rows, fields) {
-//                      console.log("======================"+rows.length);
-//                      // console.log(userInfo);
-//
-//                    }
-//                  );
     }
 
 
@@ -75,18 +57,15 @@ router.post('/callback_url', async(req, res) => {
     	// assumes virtual number was called so tries to route call to the last browser session
     	console.log("===========Incoming call");
     	const data = req.body;
-
-                  try {
+try {
                     const call = await Call_Logs.create(data);
-        //            res.send('Data saved to MySQL using Sequelize');
                   } catch (err) {
                     console.error(err);
-        //            res.status(500).send('Error saving data to MySQL using Sequelize');
                   }
 // callActions = `<Dial phoneNumbers="+254730731025"/>`;
 //        callActions = `<Dial phoneNumbers="+254708650590"/>`;
 //        callActions = `<Say>Welcome to Pettans College, Press 1 to talk to one of our representatives</Say>`
-       callActions =  `<GetDigits timeout="300" finishOnKey="#" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/call_wife">
+       callActions =  `<GetDigits timeout="300" finishOnKey="#" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/call_">
                 
                <Say>Thanks you  calling Petanns Institute of Business Studies .For New Inquiries Press zero,For  Student Inquiries Press one,Press Zero to speaks to one of our preventatives.</Say>
            </GetDigits>

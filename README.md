@@ -26,3 +26,54 @@ sequelize migration:generate --name create_calls_table
 
 sequelize db:migrate
 
+
+
+Welcome PesaMe Financial AI Voice Service
+	New Customer
+		Onboarding
+	Existing Customer
+		Enter Password
+			Say Voice Password
+				Authenicate
+					Main Voice Interface
+My Account
+	mini statement 
+	change language
+	check balance
+	change password
+	change or add voice password
+Send Money
+	Enter Phone Number
+		Enter Amount
+			Confirm Payment
+Request Money
+	Enter phone number 
+		Enter Amount you are requesting
+		 	Select Purpose(Food,Agriculture,Construction,Salary Advance)
+Make Payment
+	Utilities
+		Buys Airtime
+		Buys Tokens
+	Till Number
+		Enter Account
+				Enter Amount
+					Confirm  Transactions
+	Paybill
+		Enter Paybill
+			Enter Account
+				Enter Amount
+					Confirm  Transactions
+
+Loan and Savings
+	Mshwari
+		send to m-mshwari
+		withdraw from m-mshari
+		lock savings account
+			open 
+			save
+			withdraw
+			check Balance
+			mini statement
+		loan @9% for 30 days
+		check balance
+		mini statement

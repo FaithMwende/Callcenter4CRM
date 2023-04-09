@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/js', express.static(path.join(__dirname, 'js')))
+app.use('/css', express.static(path.join(__dirname, 'css')))
 app.use(Router);
 app.use('/pesame',pesame);
 app.use('/pesame-my-account',pesame_my_account);
