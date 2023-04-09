@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var Router = require('./routes/index');
 var pesame = require('./routes/pesame-home');
+var sendMoney = require('./routes/pesame-send-money');
 var pesame_my_account = require('./routes/pesame-my-account');
 
 var app = express();
@@ -23,6 +24,7 @@ app.use('/css', express.static(path.join(__dirname, 'css')))
 app.use(Router);
 app.use('/pesame',pesame);
 app.use('/pesame-my-account',pesame_my_account);
+app.use('/pesame/send-money',sendMoney);
 
 app.use('/sounds', express.static('sounds'));
 // catch 404 and forward to error handler

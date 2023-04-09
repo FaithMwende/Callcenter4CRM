@@ -6,6 +6,7 @@ const apiKey =
 const username = "Callcenter4CRM";
 const phoneNumber = "+254730731025";
 const customerCareNumber = "+254701564702";
+const conversationMainInput = require("./conversations-main-input");
 
 let lastRegisteredClient = `${username}`;
 
@@ -17,10 +18,7 @@ router.post("/", async (req, res) => {
     // assumes a browser tried to make a call
     callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
   } else {
-    callActions = `<GetDigits timeout="300" finishOnKey="#" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame/validate-pin">
-            <Say>Welcome To PesaMe Financial AI Voice Service, Enter your Pin followed  by the hash sign</Say>
-           </GetDigits>
-           <Say>We did not get your account number. Good bye</Say>`;
+    callActions = conversationMainInput["00"];
   }
   responseAction =
     '<?xml version="1.0" encoding="UTF-8"?><Response>' +
@@ -36,9 +34,7 @@ router.post("/validate-pin", async (req, res) => {
     // assumes a browser tried to make a call
     callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
   } else {
-    callActions = `<Record finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame/main-voice">
-                          		  <Say>Repeat this words for your voice Password. My voice is my password.</Say>
-                         </Record>`;
+    callActions = conversationMainInput["02"];
   }
   responseAction =
     '<?xml version="1.0" encoding="UTF-8"?><Response>' +
@@ -56,9 +52,7 @@ router.post("/main-voice", async (req, res) => {
     // assumes a browser tried to make a call
     callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
   } else {
-    callActions = `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame/main-voice-input">
-                          		  <Say>Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care</Say>
-                         </GetDigits>`;
+    callActions =  conversationMainInput["02"];
   }
   responseAction =
     '<?xml version="1.0" encoding="UTF-8"?><Response>' +
@@ -76,32 +70,22 @@ router.post("/main-voice-input", async (req, res) => {
     // assumes a browser tried to make a call
     callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
   } else {
-    const accountNumber = req.body.dtmfDigits;
-    console.log(accountNumber); // or do something else with it
+    const actionType = req.body.dtmfDigits;
 
-    if (accountNumber == 1) {
-      callActions = `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame-my-account">
-                              		  <Say>For Mini-statement Press 1. To change language Press 2. To check Balance Press 3. To Change Pin Press 4.  To add Or Change Voice Password Press 5</Say>
-                             </GetDigits>`;
-    } else if (accountNumber == 2) {
-      callActions = `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/validate-pin">
-                              		  <Say>Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care</Say>
-                             </GetDigits>`;
-    } else if (accountNumber == 3) {
-      callActions = `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/validate-pin">
-                              		  <Say>Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care</Say>
-                             </GetDigits>`;
-    } else if (accountNumber == 4) {
-      callActions = `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/validate-pin">
-                              		  <Say>Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care</Say>
-                             </GetDigits>`;
-    } else if (accountNumber == 5) {
-      callActions = `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/validate-pin">
-                              		  <Say>Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care</Say>
-                             </GetDigits>`;
-    } else if (accountNumber == 0) {
-   callActions = `<Dial phoneNumbers="${customerCareNumber}"/>`;
-     }
+
+    if (actionType == 1) {
+         callActions = conversationMainInput["1"];
+       } else if (actionType == 2) {
+         callActions = conversationMainInput["2"];
+       } else if (actionType == 3) {
+         callActions = conversationMainInput["3"];
+       } else if (actionType == 4) {
+         callActions = conversationMainInput["4"];
+       } else if (actionType == 5) {
+         callActions = conversationMainInput["5"];
+       } else if (actionType == 0) {
+         callActions = conversationMainInput["0"];
+       }
   }
   responseAction =
     '<?xml version="1.0" encoding="UTF-8"?><Response>' +

@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
-const actions = require("./converation-my-account");
-const conversationMainInput = require("./converations-main-input");
+const actions = require("./conversation-my-account");
+const conversationMainInput = require("./conversations-main-input");
 
 
 const apiKey =
