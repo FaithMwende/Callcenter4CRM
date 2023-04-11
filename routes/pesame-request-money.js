@@ -1,8 +1,10 @@
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
-const actions = require("./converation-my-account");
-const conversationMainInput = require("./converations-main-input");
+
+const conversationRequestMoney = require("./conversations-request-money");
+const actions = require("./conversations-request-money");
+
 
 
 const apiKey =
@@ -10,22 +12,78 @@ const apiKey =
 const username = "Callcenter4CRM";
 const phoneNumber = "+254730731025";
 const customerCareNumber = "+254701564702";
-
 let lastRegisteredClient = `${username}`;
 
+
+router.post("/-voice-input", async (req, res) => {
+  console.log(JSON.stringify(req.body, null, 2));
+  const clientDialedNumber = req.body.clientDialedNumber;
+  if (req.body.clientDialedNumber) {
+    // assumes a browser tried to make a call
+    callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
+  } else {
+    const actionType = req.body.dtmfDigits;
+
+    if (actionType == 1) {
+         callActions = conversationMainInput["1"];
+       } else if (actionType == 2) {
+         callActions = conversationMainInput["2"];
+       } else if (actionType == 3) {
+         callActions = conversationMainInput["3"];
+       } else if (actionType == 4) {
+         callActions = conversationMainInput["4"];
+       } else if (actionType == 5) {
+         callActions = conversationMainInput["5"];
+       } else if (actionType == 0) {
+         callActions = conversationMainInput["0"];
+       }
+  }
+  responseAction =
+    '<?xml version="1.0" encoding="UTF-8"?><Response>' +
+    `${callActions}` +
+    "</Response>";
+  res.send(responseAction);
+});
+///Request Money
+router.post("/utilities", async (req, res) => {
+  console.log(JSON.stringify(req.body, null, 2));
+  const clientDialedNumber = req.body.clientDialedNumber;
+  const dtmfDigits = req.body.dtmfDigits;
+  console.log("dtmfDigits: " + dtmfDigits);
+
+  callActions = conversationRequestMoney["1"];
+
+  responseAction =
+    '<?xml version="1.0" encoding="UTF-8"?><Response>' +
+    `${callActions}` +
+    "</Response>";
+  res.send(responseAction);
+});
+
+// PHONE NUMBER
+router.post("/mobile-number", async (req, res) => {
+  console.log(JSON.stringify(req.body, null, 2));
+  const clientDialedNumber = req.body.clientDialedNumber;
+  const dtmfDigits = req.body.dtmfDigits;
+  console.log("Phone Number dtmfDigits: " + dtmfDigits);
+
+  callActions = conversationRequestMoney["1"];
+
+  responseAction =
+    '<?xml version="1.0" encoding="UTF-8"?><Response>' +
+    `${callActions}` +
+    "</Response>";
+  res.send(responseAction);
+});
 // make sure to add this route as your callbck url from the africastalking dashboard
-router.post("/", async (req, res) => {
+router.post("/request-amount", async (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
   const clientDialedNumber = req.body.clientDialedNumber;
-  if (req.body.clientDialedNumber) {
-    // assumes a browser tried to make a call
-    callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
-  } else {
-    callActions = `<GetDigits timeout="300" finishOnKey="#" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame/validate-pin">
-            <Say>Welcome To PesaMe Financial AI Voice Service, Enter your Pin followed  by the hash sign</Say>
-           </GetDigits>
-           <Say>We did not get your account number. Good bye</Say>`;
-  }
+  const dtmfDigits = req.body.dtmfDigits;
+  console.log("Phone Number dtmfDigits: " + dtmfDigits);
+
+  callActions = conversationRequestMoney["1.1"];
+
   responseAction =
     '<?xml version="1.0" encoding="UTF-8"?><Response>' +
     `${callActions}` +
@@ -33,17 +91,15 @@ router.post("/", async (req, res) => {
   res.send(responseAction);
 });
 
-router.post("/validate-pin", async (req, res) => {
+//purpose
+router.post("/purpose", async (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
   const clientDialedNumber = req.body.clientDialedNumber;
-  if (req.body.clientDialedNumber) {
-    // assumes a browser tried to make a call
-    callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
-  } else {
-    callActions = `<Record finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame/main-voice">
-                          		  <Say>Repeat this words for your voice Password. My voice is my password.</Say>
-                         </Record>`;
-  }
+  const dtmfDigits = req.body.dtmfDigits;
+  console.log("Phone Number dtmfDigits: " + dtmfDigits);
+
+  callActions = conversationRequestMoney["1.2"];
+
   responseAction =
     '<?xml version="1.0" encoding="UTF-8"?><Response>' +
     `${callActions}` +
@@ -51,19 +107,15 @@ router.post("/validate-pin", async (req, res) => {
   res.send(responseAction);
 });
 
-//Main Voice Interface
-
-router.post("/main-voice", async (req, res) => {
+// make sure to add this route as your callbck url from the africastalking dashboard
+router.post("/confirm-request-money", async (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
   const clientDialedNumber = req.body.clientDialedNumber;
-  if (req.body.clientDialedNumber) {
-    // assumes a browser tried to make a call
-    callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
-  } else {
-    callActions = `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame/main-voice-input">
-                          		  <Say>Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care</Say>
-                         </GetDigits>`;
-  }
+  const dtmfDigits = req.body.dtmfDigits;
+  console.log("Amount dtmfDigits: " + dtmfDigits);
+
+  callActions = conversationSendMoney["1.3"];
+
   responseAction =
     '<?xml version="1.0" encoding="UTF-8"?><Response>' +
     `${callActions}` +
@@ -71,68 +123,18 @@ router.post("/main-voice", async (req, res) => {
   res.send(responseAction);
 });
 
-/////////////////////////////////////utility functions///////////////////////////////////////////
-
-router.post("/main-voice-input", async (req, res) => {
+// make sure to add this route as your callbck url from the africastalking dashboard
+router.post("/success", async (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
   const clientDialedNumber = req.body.clientDialedNumber;
-  if (req.body.clientDialedNumber) {
-    // assumes a browser tried to make a call
-    callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
-  } else {
-    const accountNumber = req.body.dtmfDigits;
-    console.log(accountNumber); // or do something else with it
+  const dtmfDigits = req.body.dtmfDigits;
 
-    if (accountNumber == 1) {
-      callActions = conversationMainInput["1"];
-    } else if (accountNumber == 2) {
-      callActions = conversationMainInput["2"];
-    } else if (accountNumber == 3) {
-      callActions = conversationMainInput["3"];
-    } else if (accountNumber == 4) {
-      callActions = conversationMainInput["4"];
-    } else if (accountNumber == 5) {
-      callActions = conversationMainInput["5"];
-    } else if (accountNumber == 0) {
-      callActions = conversationMainInput["0"];
-    }
-  }
+  callActions = conversationRequestMoney["2"];
+
   responseAction =
     '<?xml version="1.0" encoding="UTF-8"?><Response>' +
     `${callActions}` +
     "</Response>";
   res.send(responseAction);
 });
-
-router.post("/myaccount-voice-input", async (req, res) => {
-  console.log(JSON.stringify(req.body, null, 2));
-  const clientDialedNumber = req.body.clientDialedNumber;
-  if (req.body.clientDialedNumber) {
-    // assumes a browser tried to make a call
-    callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
-  } else {
-    const accountNumber = req.body.dtmfDigits;
-    console.log(accountNumber); // or do something else with it
-
-    if (accountNumber == 1) {
-      callActions = actions["1"];
-    } else if (accountNumber == 2) {
-      callActions = actions["2"];
-    } else if (accountNumber == 3) {
-      callActions = actions["3"];
-    } else if (accountNumber == 4) {
-      callActions = actions["4"];
-    } else if (accountNumber == 5) {
-      callActions = actions["5"];
-    } else if (accountNumber == 0) {
-      callActions = actions["0"];
-    }
-  }
-  responseAction =
-    '<?xml version="1.0" encoding="UTF-8"?><Response>' +
-    `${callActions}` +
-    "</Response>";
-  res.send(responseAction);
-});
-
 module.exports = router;

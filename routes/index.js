@@ -9,7 +9,7 @@ const apiKey =
 const username = "Callcenter4CRM";
 const phoneNumber = "+254730731025";
 
-const conversationMainInput = require("./conversations-main-input");
+
 
 let lastRegisteredClient = `${username}`;
 

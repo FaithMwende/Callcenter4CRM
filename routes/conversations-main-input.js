@@ -1,6 +1,6 @@
 // Define the actions object
 const customerCareNumber = "+254701564702";
-const base_url = "https://3459-41-80-115-45.ngrok-free.app";
+const base_url = "https://792a-197-232-59-37.ngrok-free.app";
 const actions = {
   "00": `<GetDigits timeout="300" finishOnKey="#" callbackUrl="${base_url}/pesame/validate-pin">
          <Say>Welcome To PesaMe Financial AI Voice Service, Enter your Pin followed  by the hash sign</Say>
