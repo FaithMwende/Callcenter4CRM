@@ -72,7 +72,6 @@ router.post("/main-voice-input", async (req, res) => {
   } else {
     const actionType = req.body.dtmfDigits;
 
-
     if (actionType == 1) {
          callActions = conversationMainInput["1"];
        } else if (actionType == 2) {
