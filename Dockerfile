@@ -12,6 +12,9 @@ RUN npm install --production
 
 # Make port 80 available to the world outside this container
 EXPOSE 3000
+RUN  npm install -g nodemon
+RUN nodemon -v
+
 
 # Define environment variable
 ENV NODE_ENV production

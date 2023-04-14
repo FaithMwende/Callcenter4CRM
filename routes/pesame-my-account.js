@@ -3,12 +3,11 @@ var router = express.Router();
 const axios = require("axios");
 const actions = require("./conversation-my-account");
 const conversationMainInput = require("./conversations-main-input");
+const base_url = process.env.BASE_URL;
 
-
-const apiKey =
-  "433a67884595beb77141a61adb1ddcb2012259c49d6e8e79da57b2f7eb6f6f84";
-const username = "Callcenter4CRM";
-const phoneNumber = "+254730731025";
+const apiKey = process.env.API_KEY || '433a67884595beb77141a61adb1ddcb2012259c49d6e8e79da57b2f7eb6f6f84';
+const username = process.env.USERNAME || 'Callcenter4CRM';
+const phoneNumber = process.env.PHONE_NUMBER || '+254730731025';
 const customerCareNumber = "+254701564702";
 
 let lastRegisteredClient = `${username}`;

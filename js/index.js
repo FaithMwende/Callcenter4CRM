@@ -1,12 +1,16 @@
 const username = 'Callcenter4CRM';
 
+
 const loginBtn = document.getElementById('login-btn'),
   outputLabel = document.getElementById('output-lbl'),
+   envDiv = document.getElementById('env-lbl'),
   loader = document.getElementById('loader');
 loginBtn.addEventListener("click", function () {
   ATlogin();
 });  
 console.log({ Africastalking })
+
+
 function ATlogin() {
   const clientName = document.getElementById('client-name');
   if (!(clientName.value.length === 0)) {
@@ -36,6 +40,8 @@ function ATlogin() {
           answerBtn = document.getElementById('answer-btn'),
           callBtn = document.getElementById('call-btn'),
           callto = document.getElementById('call-to'),
+
+
 
           outputColor = document.getElementById('output-color'),
           dtmfKeyboard = document.getElementById('dtmf-keyboard');
@@ -70,6 +76,8 @@ function ATlogin() {
         ////////////////////////webrtc events////////////////////////////
 
         client.on('ready', function () {
+
+//          envDiv.textContent = "ffff";
           loginBtn.setAttribute('disabled', 'disabled');
           clientName.setAttribute('disabled', 'disabled');
           logoutBtn.removeAttribute('disabled');
@@ -110,6 +118,9 @@ function ATlogin() {
         }, false);
 
         client.on('callaccepted', function () {
+
+
+
           hangupBtn.removeAttribute('disabled');
           callBtn.setAttribute('disabled', 'disabled');
           callto.setAttribute('disabled', 'disabled');

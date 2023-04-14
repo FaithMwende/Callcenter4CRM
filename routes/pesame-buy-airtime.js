@@ -3,12 +3,11 @@ var router = express.Router();
 const axios = require("axios");
 const actions = require("./converation-my-account");
 const conversationMainInput = require("./converations-main-input");
+const base_url = process.env.BASE_URL;
 
-
-const apiKey =
-  "433a67884595beb77141a61adb1ddcb2012259c49d6e8e79da57b2f7eb6f6f84";
-const username = "Callcenter4CRM";
-const phoneNumber = "+254730731025";
+const apiKey = process.env.API_KEY || '433a67884595beb77141a61adb1ddcb2012259c49d6e8e79da57b2f7eb6f6f84';
+const username = process.env.USERNAME || 'Callcenter4CRM';
+const phoneNumber = process.env.PHONE_NUMBER || '+254730731025';
 const customerCareNumber = "+254701564702";
 
 let lastRegisteredClient = `${username}`;
@@ -21,7 +20,7 @@ router.post("/", async (req, res) => {
     // assumes a browser tried to make a call
     callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
   } else {
-    callActions = `<GetDigits timeout="300" finishOnKey="#" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame/validate-pin">
+    callActions = `<GetDigits timeout="300" finishOnKey="#" callbackUrl="${base_url}/pesame/validate-pin">
             <Say>Welcome To PesaMe Financial AI Voice Service, Enter your Pin followed  by the hash sign</Say>
            </GetDigits>
            <Say>We did not get your account number. Good bye</Say>`;
@@ -40,7 +39,7 @@ router.post("/validate-pin", async (req, res) => {
     // assumes a browser tried to make a call
     callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
   } else {
-    callActions = `<Record finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame/main-voice">
+    callActions = `<Record finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="${base_url}/pesame/main-voice">
                           		  <Say>Repeat this words for your voice Password. My voice is my password.</Say>
                          </Record>`;
   }
@@ -60,7 +59,7 @@ router.post("/main-voice", async (req, res) => {
     // assumes a browser tried to make a call
     callActions = `<Dial phoneNumbers="${clientDialedNumber}"/>`;
   } else {
-    callActions = `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="https://9dc0-41-80-112-84.eu.ngrok.io/pesame/main-voice-input">
+    callActions = `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="${base_url}/pesame/main-voice-input">
                           		  <Say>Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care</Say>
                          </GetDigits>`;
   }

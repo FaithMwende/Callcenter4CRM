@@ -1,6 +1,7 @@
 // Define the actions object
+//require('dotenv').config();
 const customerCareNumber = "+254701564702";
-const base_url = "https://3459-41-80-115-45.ngrok-free.app";
+const base_url = process.env.BASE_URL;
 const actions = {
   "1": `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="${base_url}/myaccount-voice-input">
            <Say>For Mini-statement Press 1. To change language Press 2. To check Balance Press 3. To Change Pin Press 4.  To add Or Change Voice Password Press 5</Say>

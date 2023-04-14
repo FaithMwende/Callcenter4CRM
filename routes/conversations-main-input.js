@@ -1,6 +1,8 @@
 // Define the actions object
+//require('dotenv').config();
 const customerCareNumber = "+254701564702";
-const base_url = "https://3459-41-80-115-45.ngrok-free.app";
+const base_url = process.env.BASE_URL;
+const conversationRequestMoney = require("./conversations-request-money");
 const actions = {
   "00": `<GetDigits timeout="300" finishOnKey="#" callbackUrl="${base_url}/pesame/validate-pin">
          <Say>Welcome To PesaMe Financial AI Voice Service, Enter your Pin followed  by the hash sign</Say>
@@ -25,9 +27,7 @@ const actions = {
                  <Say>Your About to Send Kenya Shilling 3000 To 0726339983. To Confirm press 1 . To Decline Press 2 followed by Hash Sign)</Say>
                </GetDigits>`,
     "2.3": `<Say>Your Request Has been successfully been process. Thank you for Using pesaMe Finacial AI Voice Service.</Say>`,
-  "3": `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="${base_url}/validate-pin">
-           <Say>Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care</Say>
-         </GetDigits>`,
+  "3": conversationRequestMoney["1"],
   "4": `<GetDigits finishOnKey="#" maxLength="10" trimSilence="true" playBeep="true" callbackUrl="${base_url}/validate-pin">
            <Say>Thank you . For My account press 1. To send money press 2. To Request for Money press 3. To Make Payment Press 4. For Loans and Savings Press 5. Press 0 To Speak to Customer Care</Say>
          </GetDigits>`,

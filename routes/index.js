@@ -4,17 +4,17 @@ var dbConn = require("../lib/db");
 const readline = require("readline");
 var Call_Logs = require("../models/call_log");
 const axios = require("axios");
-const apiKey =
-  "433a67884595beb77141a61adb1ddcb2012259c49d6e8e79da57b2f7eb6f6f84";
-const username = "Callcenter4CRM";
-const phoneNumber = "+254730731025";
-
+const base_url = process.env.BASE_URL;
+const apiKey = process.env.API_KEY || '433a67884595beb77141a61adb1ddcb2012259c49d6e8e79da57b2f7eb6f6f84';
+const username = process.env.USERNAME || 'Callcenter4CRM';
+const phoneNumber = process.env.PHONE_NUMBER || '+254730731025';
+const NODE_ENV = process.env.NODE_ENV;
 const conversationMainInput = require("./conversations-main-input");
 
 let lastRegisteredClient = `${username}`;
 
 router.get("/", (req, res) => {
-  res.render("index");
+  res.render("index",{NODE_ENV:NODE_ENV});
 });
 
 router.get("/wig", (req, res) => {

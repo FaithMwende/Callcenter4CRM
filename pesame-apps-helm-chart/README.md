@@ -7,6 +7,7 @@
 
 ## Upgrading Helm
     helm upgrade integ-app .  ./mychart-1.1.0.tgz --set myapp.image.tag=1.1.0
+    helm upgrade pesame-fin-voice-app .
 
 ## Set Up Kube Cluster
     export KUBECONFIG=savoirms-kubeconfig.yaml

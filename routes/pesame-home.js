@@ -1,14 +1,27 @@
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
-const apiKey =
-  "433a67884595beb77141a61adb1ddcb2012259c49d6e8e79da57b2f7eb6f6f84";
-const username = "Callcenter4CRM";
-const phoneNumber = "+254730731025";
+
+const apiKey = process.env.API_KEY ;
+const username = process.env.USERNAME ;
+const phoneNumber = process.env.PHONE_NUMBER ;
+const base_url = process.env.BASE_URL;
+const NODE_ENV = process.env.NODE_ENV;
+
 const customerCareNumber = "+254701564702";
 const conversationMainInput = require("./conversations-main-input");
+const conversationSendMoney = require("./conversations-send-money");
+const conversationRequestMoney = require("./conversations-request-money");
+const conversationPayments = require("./conversations-payments");
+const conversationMyAccount = require("./conversation-my-account");
 
 let lastRegisteredClient = `${username}`;
+
+
+console.log(`API key: ${apiKey}`);
+console.log(`Username: ${username}`);
+console.log(`Phone number: ${phoneNumber}`);
+console.log(`NODE_ENV: ${NODE_ENV}`)
 
 // make sure to add this route as your callbck url from the africastalking dashboard
 router.post("/", async (req, res) => {
