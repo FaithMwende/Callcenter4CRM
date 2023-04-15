@@ -11,6 +11,10 @@ var sendMoney = require('./routes/pesame-send-money');
 var pesame_my_account = require('./routes/pesame-my-account');
 var payments = require('./routes/pesame-payments');
 var pesameRequestMoney = require('./routes/pesame-request-money');
+var pesameTillNumber = require('./routes/pesame-till-number');
+var pesamePaybillNumber = require('./routes/pesame-paybill-number');
+var pesameLoansAndSavings = require('./routes/pesame-loans-and-savings');
+
 
 var app = express();
 
@@ -37,6 +41,10 @@ app.use('/pesame-my-account',pesame_my_account);
 app.use('/pesame/send-money',sendMoney);
 app.use('/pesame/payments',payments);
 app.use('/pesame/request-money',pesameRequestMoney);
+app.use('/pesame/request-money',pesameTillNumber);
+app.use('/pesame/request-money',pesamePaybillNumber);
+app.use('/pesame/request-money',pesameLoansAndSavings);
+
 
 app.use('/sounds', express.static('sounds'));
 // catch 404 and forward to error handler
