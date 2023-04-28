@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  pesame-app:
+    image: savoirms/mbg-pesame-app:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=pesame
+      - DB_USER=pesame
+      - DB_PASS=pesamepass
+      - NODE_ENV=development
+#    depends_on:
+#      - db
+
+#  db:
+#    image: postgres:12-alpine
+#    environment:
+#      - POSTGRES_DB=pesame
+#      - POSTGRES_USER=pesame
+#      - POSTGRES_PASSWORD=pesamepass
+#    volumes:
+#      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
